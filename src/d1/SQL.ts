@@ -7,10 +7,10 @@ const createImgTable = `CREATE TABLE IF NOT EXISTS Images
 
 const createAlbumTable = `CREATE TABLE IF NOT EXISTS Albums
 (
-		Hash VARCHAR(32),
+    Hash VARCHAR(32),
     Album VARCHAR(24),
     UNIQUE(Hash,Album),
-		FOREIGN KEY (Hash) REFERENCES Images(Hash)
+	FOREIGN KEY (Hash) REFERENCES Images(Hash)
 );
 `
 
@@ -19,7 +19,6 @@ const createImgDataTable = `CREATE TABLE IF NOT EXISTS ImageData
     Hash VARCHAR(32),
     Path TEXT,
     Size VARCHAR(5),
-    Type VARCHAR(4),
     FOREIGN KEY (Hash) REFERENCES Images(Hash)
 );`
 
@@ -39,14 +38,15 @@ export const SQL = {
     by_album_scale: ` WHERE Albums.Album = ? AND Images.Scale = ? `,
     fixed: {
         put_img: `INSERT OR IGNORE INTO Images VALUES (?, ?, ?);`,
-        put_img_data: `INSERT OR IGNORE INTO ImageData VALUES (?, ?, ?, ?);`,
+        put_img_data: `INSERT OR IGNORE INTO ImageData VALUES (?, ?, ?);`,
         bind_img_album: `INSERT OR IGNORE INTO Albums VALUES (? , ?);`,
-        get_img_path: `SELECT Path FROM ImageData WHERE Hash = ? AND Size = ? AND Type = ?;`,
+        get_img_path: `SELECT Path FROM ImageData WHERE Hash = ? AND Size = ?;`,
+        get_raw_img_path: `SELECT Path FROM ImageData WHERE Hash = ? AND Size = ?;`,
         get_img_scale: `SELECT Scale FROM Images WHERE Hash = ?;`,
         get_all_paths: `SELECT Path FROM ImageData WHERE Hash = ?;`,
         del_album: `DELETE FROM Albums WHERE Hash = ? AND Album = ?;`,
         del_files: [`DELETE FROM ImageData WHERE Hash = ?;`, `DELETE FROM Albums WHERE Hash = ?;`, `DELETE FROM Images WHERE Hash = ?;`],
-        a_contains: `SELECT Album FROM Albums WHERE Hash = ?;'`
+        a_contains: `SELECT Album FROM Albums WHERE Hash = ?;`
     },
     create: {
         img: createImgTable,

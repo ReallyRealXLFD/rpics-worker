@@ -1,21 +1,23 @@
 name = "rpics"
-compatibility_date = "2023-12-01"
+compatibility_date = "2024-04-22"
+compatibility_flags = ["nodejs_compat"]
+main = 'src/index.ts'
 
-# [vars]
-# MY_VAR = "my-variable"
+[vars]
+BUCKET_BASE = 'https://rpics-bucket.realxlfd.top'
+TOKEN = 'kouseki@xlfd'
+BUCKET_IMAGE_PATH = 'img'
+BUCKET_CACHE_PATH = 'cache'
+BUCKET_PROC_CACHE = 'proc_cache'
 
-# [[kv_namespaces]]
-# binding = "MY_KV_NAMESPACE"
-# id = "xxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxx"
+[[r2_buckets]]
+binding = 'BUCKET'
+bucket_name = 'rpics'
 
-# [[r2_buckets]]
-# binding = "MY_BUCKET"
-# bucket_name = "my-bucket"
+[[d1_databases]]
+binding = "DB"
+database_name = "rpics-db"
+database_id = "36fa125c-a259-4369-974d-3fcc5b625a19"
 
-# [[d1_databases]]
-# binding = "DB"
-# database_name = "my-database"
-# database_id = ""
-
-# [ai]
-# binding = "AI"
+[placement]
+mode = "smart"
